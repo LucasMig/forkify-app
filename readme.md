@@ -14,7 +14,7 @@ Para testar, basta acessar. =)
 
 ## Como esse projeto foi feito?
 
-A aplicação foi criada com as linguagens básicas do desenvolvimento web (HTML, CSS e JS) e consome uma API de receitas chamada XXX. Esse foi um dos projetos que mais gostei de construir até o momento, então detalhei melhor todo o processo a seguir!
+A aplicação foi criada com as linguagens básicas do desenvolvimento web (HTML, CSS e JS) e consome uma API de receitas chamada [Forkify](https://forkify-api.herokuapp.com/v2). Esse foi um dos projetos que mais gostei de construir até o momento, então detalhei melhor todo o processo a seguir!
 
 ### Planejamento 1/4: User stories
 

@@ -1,0 +1,23 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasMig/forkify-app.git"
+  },
+  "author": "Lucas Migliori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasMig/forkify-app/issues"
+  },
+  "homepage": "https://github.com/LucasMig/forkify-app#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "parcel": "^2.6.2"
+  }
+}

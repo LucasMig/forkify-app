@@ -66,3 +66,23 @@ Com as features em mente, o próximo passo foi estruturá-las de maneira coerent
 Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Esse é um diagrama da implementação que foi feita na parte que mostra as receitas:
 
 ![Arquitetura receitas](./assets/arquitetura-exemplo-receitas.jpeg)
+
+### Desenvolvimento
+
+- Comecei pela parte principal: buscar receitas na API;
+- Após conseguir fazer a busca e obter o resultado, comecei a trabalhar na renderização desse resultado no DOM
+- Até aqui, a busca era feita manualmente, no código mesmo
+- Simulei uma busca real fazendo o DOM escutar os eventos de load e hashchange para diferentes IDs de receita
+- Até aqui, estava tudo no model.js. Comecei a refatorar o código pra respeitar a arquitetura MVC
+- Criei o arquivo controller.js para ser o controlador e o arquivo recipeView.js para ser a view responsável pela renderização das receitas.
+- A parte de escutar os eventos foi colocada dentro da view, enquanto a parte de lidar com esses eventos ficou no model.
+- Explicar a estrutura de cada um dos componentes e os imports/exports entre eles.
+- Pra manter essa estrutura enquanto o controller orquestrava tudo, implementamos o padrão Publisher-Subscriber
+- O Publisher, nesse caso, é o recipeView.addHandlerRender(handler). Esse método é chamado pela função init() do controller e passa a função controlRecipes como argumento, fazendo dela o Subscriber.
+- O que acontece ao inicializar o app então é:
+  1. init() chama recipeView.addHandlerRender(controlRecipes)
+  2. recipeView.addHandlerRender() escuta os eventos load e hashchange e chama a função controlRecipes() quando ocorrem
+  3. controlRecipes() pega o ID presente na URL e chama model.loadRecipe(id)
+  4. model.loadRecipe() faz a requisição pra API e atribui o objeto que recebe dela a model.state.recipe
+  5. controlRecipes() chama recipeView.render(model.state.recipe)
+  6. recipeView.render() renderiza o objeto recebido no DOM

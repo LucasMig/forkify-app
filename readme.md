@@ -63,9 +63,7 @@ Com as features em mente, o próximo passo foi estruturá-las de maneira coerent
 
 ### Planejamento 4/4: Arquitetura
 
-Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Para exemplificar, esse é um diagrama da implementação que foi feita na parte que mostra as receitas:
-
-![Arquitetura receitas](./assets/arquitetura-exemplo-receitas.jpeg)
+Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Na próxima parte, coloquei um diagrama para exemplificar.
 
 ### Desenvolvimento 1/?: Primeiras requests e views
 
@@ -79,7 +77,9 @@ Por fim, simulei uma busca real fazendo a aplicação escutar os eventos de _loa
 
 ### Desenvolvimento 2/?: Refatorando para MVC
 
-Todo o código, até aqui, estava em um único arquivo. Comecei a refatorar o código pra respeitar a arquitetura MVC, da forma que foi representado no diagrama do planejamento.
+Todo o código, até aqui, estava em um único arquivo. Comecei a refatorar o código pra respeitar a arquitetura MVC. Esse é um diagrama da implementação que foi feita nessa parte:
+
+![Arquitetura receitas](./assets/arquitetura-exemplo-receitas.jpeg)
 
 O arquivo que estava trabalhando passou a ser o _model.js_, e criei o arquivo _controller.js_ para ser o controlador e o arquivo _recipeView.js_ para ser a view responsável pela renderização das receitas. Em seguida, reorganizei todo o código feito até o momento da seguinte forma:
 

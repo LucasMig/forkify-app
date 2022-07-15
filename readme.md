@@ -63,26 +63,55 @@ Com as features em mente, o próximo passo foi estruturá-las de maneira coerent
 
 ### Planejamento 4/4: Arquitetura
 
-Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Esse é um diagrama da implementação que foi feita na parte que mostra as receitas:
+Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Para exemplificar, esse é um diagrama da implementação que foi feita na parte que mostra as receitas:
 
 ![Arquitetura receitas](./assets/arquitetura-exemplo-receitas.jpeg)
 
-### Desenvolvimento
+### Desenvolvimento 1/?: Primeiras requests e views
 
-- Comecei pela parte principal: buscar receitas na API;
-- Após conseguir fazer a busca e obter o resultado, comecei a trabalhar na renderização desse resultado no DOM
-- Até aqui, a busca era feita manualmente, no código mesmo
-- Simulei uma busca real fazendo o DOM escutar os eventos de load e hashchange para diferentes IDs de receita
-- Até aqui, estava tudo no model.js. Comecei a refatorar o código pra respeitar a arquitetura MVC
-- Criei o arquivo controller.js para ser o controlador e o arquivo recipeView.js para ser a view responsável pela renderização das receitas.
-- A parte de escutar os eventos foi colocada dentro da view, enquanto a parte de lidar com esses eventos ficou no model.
-- Explicar a estrutura de cada um dos componentes e os imports/exports entre eles.
-- Pra manter essa estrutura enquanto o controller orquestrava tudo, implementamos o padrão Publisher-Subscriber
-- O Publisher, nesse caso, é o recipeView.addHandlerRender(handler). Esse método é chamado pela função init() do controller e passa a função controlRecipes como argumento, fazendo dela o Subscriber.
-- O que acontece ao inicializar o app então é:
-  1. init() chama recipeView.addHandlerRender(controlRecipes)
-  2. recipeView.addHandlerRender() escuta os eventos load e hashchange e chama a função controlRecipes() quando ocorrem
-  3. controlRecipes() pega o ID presente na URL e chama model.loadRecipe(id)
-  4. model.loadRecipe() faz a requisição pra API e atribui o objeto que recebe dela a model.state.recipe
-  5. controlRecipes() chama recipeView.render(model.state.recipe)
-  6. recipeView.render() renderiza o objeto recebido no DOM
+Comecei o projeto pela parte principal: buscar uma receita na API. Nesse primeiro momento, usei a função _fetch()_ com o endpoint + um ID retirado da documentação, direto no código mesmo.
+
+Com a request e a conversão do arquivo JSON para um objeto dando certo, eu tinha uma receita exemplo pra começar a trabalhar na renderização desse objeto no DOM.
+
+![Renderização exemplo](./assets/renderiza%C3%A7%C3%A3o-exemplo.png)
+
+Por fim, simulei uma busca real fazendo a aplicação escutar os eventos de _load_ e _hashchange_ para diferentes IDs de receita e só então fazer o fetch com o ID retirado do DOM.
+
+### Desenvolvimento 2/?: Refatorando para MVC
+
+Todo o código, até aqui, estava em um único arquivo. Comecei a refatorar o código pra respeitar a arquitetura MVC, da forma que foi representado no diagrama do planejamento.
+
+O arquivo que estava trabalhando passou a ser o _model.js_, e criei o arquivo _controller.js_ para ser o controlador e o arquivo _recipeView.js_ para ser a view responsável pela renderização das receitas. Em seguida, reorganizei todo o código feito até o momento.
+
+#### model.js
+
+Esse módulo passou a ser o responsável por toda a interação com a API e pelas regras de negócio. É composto pela variável _state_ e funções que a manipulam. Tanto _state_ quanto as funções do _model.js_ são exportadas pra que o controlador possa acessá-las.
+
+#### recipeView.js
+
+Esse módulo foi a primeira view da aplicação. É a _class RecipeView {...}_, que contém as variáveis e métodos necessários para manipular o DOM e pegar informações dele, quando preciso. Exportar a própria classe permitiria que ela fosse manipulada e possiblitaria erros e bugs. Então, em vez disso, esse módulo exporta uma nova instância de _RecipeView_.
+
+#### controller.js
+
+De forma resumida, é a ponte entre o _model_ e as _views_.
+
+Esse módulo passou a ser o responsável pela lógica da aplicação em si (não pelas regras de negócio), e controla tanto _model.js_ quanto as _views_. É basicamente o "decision maker" da aplicação. Ele importa todo o _model.js_ e também uma instância de cada _view_ (por enquanto só de _RecipeView_).
+
+Ele inicia a aplicação, lida com os eventos escutados pelas _views_ invocando os métodos de _model.js_. Também usa o objeto _state_ (de _model.js_) e seus atributos para invocar métodos das _views_ pra que o DOM seja manipulado de acordo.
+
+### Desenvolvimento 3/?: Aplicando o padrão Publisher-Subscriber
+
+Pra manter a estrutura adequada, a parte de escutar os eventos precisava ficar na _recipeView_, enquanto quem de fato lidaria com esses eventos seriam as funções do _controller_, que invocariam os devidos métodos de _model.js_.
+
+Porém, as funções que deveriam ser chamadas pelos eventos escutados pela _recipeView_ estavam em _controller.js_, e não na _recipeView_. Como a _recipeView_ poderiam chamar uma função que, para a _recipeView_, não estava definida?
+
+Para isso, implementamos o padrão **Publisher-Subscriber**. O **Publisher**, nesse caso, é o método _recipeView.addHandlerRender(handler)_. Esse método é chamado pela função _init()_ do _controller_ e passa a função _controlRecipes_ como argumento, fazendo dela o **Subscriber**.
+
+O que acontece ao inicializar o app então é:
+
+1. _init()_ chama _recipeView.addHandlerRender(controlRecipes)_
+2. _recipeView.addHandlerRender()_ escuta os eventos de _load_ e _hashchange_ e chama a função _controlRecipes()_ quando ocorrem
+3. _controlRecipes()_ pega o ID presente na URL e chama _model.loadRecipe(id)_
+4. _model.loadRecipe()_ faz a requisição pra API e atribui o objeto que recebe dela a _model.state.recipe_
+5. _controlRecipes()_ chama _recipeView.render(model.state.recipe)_
+6. _recipeView.render()_ renderiza o objeto recebido no DOM

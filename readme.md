@@ -103,7 +103,7 @@ Ele inicia a aplicação, lida com os eventos escutados pelas _views_ invocando 
 
 Pra manter a estrutura adequada, a parte de escutar os eventos precisava ficar na _recipeView_, enquanto quem de fato lidaria com esses eventos seriam as funções do _controller_, que invocariam os devidos métodos de _model.js_.
 
-Porém, as funções que deveriam ser chamadas pelos eventos escutados pela _recipeView_ estavam em _controller.js_, e não na _recipeView_. Como a _recipeView_ poderiam chamar uma função que, para a _recipeView_, não estava definida?
+Porém, as funções que deveriam ser chamadas pelos eventos escutados pela _recipeView_ estavam em _controller.js_, e não na _recipeView_. Como a _recipeView_ poderia chamar uma função que, para a _recipeView_, não estava definida?
 
 Para isso, implementamos o padrão **Publisher-Subscriber**. O **Publisher**, nesse caso, é o método _recipeView.addHandlerRender(handler)_. Esse método é chamado pela função _init()_ do _controller_ e passa a função _controlRecipes_ como argumento, fazendo dela o **Subscriber**.
 

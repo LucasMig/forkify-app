@@ -81,7 +81,7 @@ Por fim, simulei uma busca real fazendo a aplicação escutar os eventos de _loa
 
 Todo o código, até aqui, estava em um único arquivo. Comecei a refatorar o código pra respeitar a arquitetura MVC, da forma que foi representado no diagrama do planejamento.
 
-O arquivo que estava trabalhando passou a ser o _model.js_, e criei o arquivo _controller.js_ para ser o controlador e o arquivo _recipeView.js_ para ser a view responsável pela renderização das receitas. Em seguida, reorganizei todo o código feito até o momento.
+O arquivo que estava trabalhando passou a ser o _model.js_, e criei o arquivo _controller.js_ para ser o controlador e o arquivo _recipeView.js_ para ser a view responsável pela renderização das receitas. Em seguida, reorganizei todo o código feito até o momento da seguinte forma:
 
 #### model.js
 
@@ -115,3 +115,23 @@ O que acontece ao inicializar o app então é:
 4. _model.loadRecipe()_ faz a requisição pra API e atribui o objeto que recebe dela a _model.state.recipe_
 5. _controlRecipes()_ chama _recipeView.render(model.state.recipe)_
 6. _recipeView.render()_ renderiza o objeto recebido no DOM
+
+### Desenvolvimento 4/?: config.js e helpers.js
+
+Um detalhe legal no meio do processo foi a criação desses 2 arquivos pra literalmente configurar e auxiliar o processo de desenvolvimento.
+
+O _config.js_ exporta variáveis fundamentais que são usadas por muitos (ou todos) componentes da aplicação, como a URL da API, por exemplo.
+
+O _helpers.js_ exporta funções que, da mesma forma, são comuns a vários componentes da aplicação.
+
+### Desenvolvimento 5/?: Implementando recurso de pesquisa
+
+Seguindo o mesmo esquema da _recipeView.js_, criei _searchView.js_ e _resultsView.js_. Responsáveis pelas _views_ da barra de pesquisa e da barra lateral onde os resultados da pesquisa devem ser mostrados, respectivamente.
+
+A partir daqui, podemos pesquisar palavras-chave e visualizar todos os resultados na barra à esquerda. Como a renderização das receitas já estava feita, também é possível selecionar qualquer resultado da lista para visualizá-lo.
+
+### Desenvolvimento 6/?: Melhorando a cadeia de protótipos (herança entre classes)
+
+Nesse ponto, já existiam 3 _views_ que tinham métodos e atributos comuns entre si. Então, extraí esses elementos das _views_ e criei _View.js_ pra ser a parent class delas.
+
+Agora, _RecipeView_, _SearchView_ e _ResultsView_ extendiam _View_. Os métodos e atributos comuns a todas as _views_ passaram a ser herdados de sua parent class, e cada _view_ manteve suas especificidades, evitando código duplicado.

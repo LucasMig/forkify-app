@@ -135,3 +135,5 @@ A partir daqui, podemos pesquisar palavras-chave e visualizar todos os resultado
 Nesse ponto, já existiam 3 _views_ que tinham métodos e atributos comuns entre si. Então, extraí esses elementos das _views_ e criei _View.js_ pra ser a parent class delas.
 
 Agora, _RecipeView_, _SearchView_ e _ResultsView_ extendiam _View_. Os métodos e atributos comuns a todas as _views_ passaram a ser herdados de sua parent class, e cada _view_ manteve suas especificidades, evitando código duplicado.
+
+### Desenvolvimento 7/?: Melhorando a cadeia de protótipos (herança entre classes)

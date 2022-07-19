@@ -65,7 +65,9 @@ Com as features em mente, o próximo passo foi estruturá-las de maneira coerent
 
 Essa, sem dúvidas, foi uma das partes mais desafiadoras, porém sei que foi também uma das mais engrandecedoras. Aqui, depois de estudar um pouco sobre arquitetura de software, segui o padrão MVC conforme apresentado no curso. Na próxima parte, coloquei um diagrama para exemplificar.
 
-### Desenvolvimento 1/?: Primeiras requests e views
+---
+
+### Desenvolvimento 1/10: Primeiras requests e views
 
 Comecei o projeto pela parte principal: buscar uma receita na API. Nesse primeiro momento, usei a função _fetch()_ com o endpoint + um ID retirado da documentação, direto no código mesmo.
 
@@ -75,7 +77,7 @@ Com a request e a conversão do arquivo JSON para um objeto dando certo, eu tinh
 
 Por fim, simulei uma busca real fazendo a aplicação escutar os eventos de _load_ e _hashchange_ para diferentes IDs de receita e só então fazer o fetch com o ID retirado do DOM.
 
-### Desenvolvimento 2/?: Refatorando para MVC
+### Desenvolvimento 2/10: Refatorando para MVC
 
 Todo o código, até aqui, estava em um único arquivo. Comecei a refatorar o código pra respeitar a arquitetura MVC. Esse é um diagrama da implementação que foi feita nessa parte:
 
@@ -99,7 +101,7 @@ Esse módulo passou a ser o responsável pela lógica da aplicação em si (não
 
 Ele inicia a aplicação, lida com os eventos escutados pelas _views_ invocando os métodos de _model.js_. Também usa o objeto _state_ (de _model.js_) e seus atributos para invocar métodos das _views_ pra que o DOM seja manipulado de acordo.
 
-### Desenvolvimento 3/?: Aplicando o padrão Publisher-Subscriber
+### Desenvolvimento 3/10: Aplicando o padrão Publisher-Subscriber
 
 Pra manter a estrutura adequada, a parte de escutar os eventos precisava ficar na _recipeView_, enquanto quem de fato lidaria com esses eventos seriam as funções do _controller_, que invocariam os devidos métodos de _model.js_.
 
@@ -116,7 +118,7 @@ O que acontece ao inicializar o app então é:
 5. _controlRecipes()_ chama _recipeView.render(model.state.recipe)_
 6. _recipeView.render()_ renderiza o objeto recebido no DOM
 
-### Desenvolvimento 4/?: config.js e helpers.js
+### Desenvolvimento 4/10: config.js e helpers.js
 
 Um detalhe legal no meio do processo foi a criação desses 2 arquivos pra literalmente configurar e auxiliar o processo de desenvolvimento.
 
@@ -124,20 +126,24 @@ O _config.js_ exporta variáveis fundamentais que são usadas por muitos (ou tod
 
 O _helpers.js_ exporta funções que, da mesma forma, são comuns a vários componentes da aplicação.
 
-### Desenvolvimento 5/?: Implementando recurso de pesquisa
+### Desenvolvimento 5/10: Implementando recurso de pesquisa
 
 Seguindo o mesmo esquema da _recipeView.js_, criei _searchView.js_ e _resultsView.js_. Responsáveis pelas _views_ da barra de pesquisa e da barra lateral onde os resultados da pesquisa devem ser mostrados, respectivamente.
 
 A partir daqui, podemos pesquisar palavras-chave e visualizar todos os resultados na barra à esquerda. Como a renderização das receitas já estava feita, também é possível selecionar qualquer resultado da lista para visualizá-lo.
 
-### Desenvolvimento 6/?: Melhorando a cadeia de protótipos (herança entre classes)
+### Desenvolvimento 6/10: Melhorando a cadeia de protótipos (herança entre classes)
 
 Nesse ponto, já existiam 3 _views_ que tinham métodos e atributos comuns entre si. Então, extraí esses elementos das _views_ e criei _View.js_ pra ser a parent class delas.
 
 Agora, _RecipeView_, _SearchView_ e _ResultsView_ extendiam _View_. Os métodos e atributos comuns a todas as _views_ passaram a ser herdados de sua parent class, e cada _view_ manteve suas especificidades, evitando código duplicado.
 
-### Desenvolvimento 7/?: Acrescentando paginação e possibilidade de alterar porções
+### Desenvolvimento 7/10: Acrescentando paginação e possibilidade de alterar porções
 
-### Desenvolvimento 8/?: Implementando um algoritmo simples pra atualização do DOM
+Pra acrescentar
 
-### Desenvolvimento 9/?: Salvando receitas com localStorage
+### Desenvolvimento 8/10: Implementando um algoritmo simples pra atualização do DOM
+
+### Desenvolvimento 9/10: Salvando receitas com localStorage
+
+### Desenvolvimento 10/10: Criação de receitas e developer keys

@@ -140,10 +140,36 @@ Agora, _RecipeView_, _SearchView_ e _ResultsView_ extendiam _View_. Os métodos 
 
 ### Desenvolvimento 7/10: Acrescentando paginação e possibilidade de alterar porções
 
-Pra acrescentar
+Aqui surgiram duas novas _views_, que são _paginationView.js_ e _previewView.js_, seguindo a arquitetura e o padrão Publisher-Subscriber como as anteriores.
+
+_paginationView.js_ calcula o número de páginas de acordo com os resultados da busca, e valida em qual página o _model.state_ se encontra, para então construir e renderizar o HTML adequado.
+
+_previewView.js_ foi criada pra funcionar como uma _child class_ de _resultsView.js_ e _bookmarksView.js_. Isso porque o HTML gerado em ambas as _views_ era exatamente o mesmo. Sendo assim, o método _generateMarkup_ dessas _views_ invoca _previewView.render(data, render)_.
+
+Esse método recebe o objeto com as informações a serem renderizadas (_data_) e, se o parâmetro _render_ for **true**, constrói e renderiza o HTML no DOM. Já se _render_ for **false**, retorna o HTML pra que ele seja renderizado depois, no momento correto.
+
+Sobre alterar as porções, não tem nada muito especial. As quantidades dos ingredientes apenas são recalculadas de acordo com o novo número de porções.
 
 ### Desenvolvimento 8/10: Implementando um algoritmo simples pra atualização do DOM
 
+Pensando na otimização do app, construímos uma lógica para que o DOM só fosse manipulado onde necessário.
+
+Com esse algoritmo, em vez de usar o método _render()_ das _views_ pra "apagar" e "reconstruir" os códigos HTML toda vez, passaríamos a usar o método _update()_.
+
+Esse novo método compara as _nodeLists_ do DOM com as _nodeLists_ geradas pelo método _generateMarkup()_ e substitui somente aquelas em que houve alguma mudança relevante para o funcionamento da aplicação.
+
 ### Desenvolvimento 9/10: Salvando receitas com localStorage
 
-### Desenvolvimento 10/10: Criação de receitas e developer keys
+Agora já era possível marcar e desmarcar receitas, e na próxima etapa implementaremos a criação de receitas. Pra deixar esses recursos um pouco mais realistas, é importante que essas informações persistam.
+
+Assim, o usuário pode fechar a aplicação e acessá-la posteriormente, e ainda assim visualizar as receitas marcadas/criadas por ele antes. Pra isso, usei a API de localStorage pra armazenar a array _bookmarks_. As funções _addBookmark()_ e _deleteBookmark()_ manipulam a array e setam o item no localStorage em seguida.
+
+Adicionei também a função _init()_ pra fazer o caminho oposto e pegar a array _bookmarks_ do localStorage pra que ela pudesse ser renderizada no DOM.
+
+### Desenvolvimento 10/10: Criação de receitas e developer key
+
+Por fim, criei _addRecipeView.js_ pra implementar a criação de receitas por parte do usuário.
+
+Nessa _view_, pegamos as informações inseridas nos campos para criar um objeto com a mesma estrutura dos objetos recebidos da API. A única diferença é que, para esses objetos, adicionaremos uma _developer key_ como uma de suas propriedades. Em seguida, enviamos esse objeto pra API com um método POST, e a API devolve esse mesmo objeto.
+
+Após receber o objeto de volta, ele é renderizado no DOM e marcado automaticamente. A _developer key_ adicionada passa a compor também a URL que usamos nas requests pra API, retornando somente as receitas já existentes na API e as receitas criadas pelo próprio usuário (com a mesma _key_).

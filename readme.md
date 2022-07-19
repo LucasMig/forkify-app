@@ -136,4 +136,8 @@ Nesse ponto, já existiam 3 _views_ que tinham métodos e atributos comuns entre
 
 Agora, _RecipeView_, _SearchView_ e _ResultsView_ extendiam _View_. Os métodos e atributos comuns a todas as _views_ passaram a ser herdados de sua parent class, e cada _view_ manteve suas especificidades, evitando código duplicado.
 
-### Desenvolvimento 7/?: Melhorando a cadeia de protótipos (herança entre classes)
+### Desenvolvimento 7/?: Acrescentando paginação e possibilidade de alterar porções
+
+### Desenvolvimento 8/?: Implementando um algoritmo simples pra atualização do DOM
+
+### Desenvolvimento 9/?: Salvando receitas com localStorage

@@ -173,3 +173,21 @@ Por fim, criei _addRecipeView.js_ pra implementar a criação de receitas por pa
 Nessa _view_, pegamos as informações inseridas nos campos para criar um objeto com a mesma estrutura dos objetos recebidos da API. A única diferença é que, para esses objetos, adicionaremos uma _developer key_ como uma de suas propriedades. Em seguida, enviamos esse objeto pra API com um método POST, e a API devolve esse mesmo objeto.
 
 Após receber o objeto de volta, ele é renderizado no DOM e marcado automaticamente. A _developer key_ adicionada passa a compor também a URL que usamos nas requests pra API, retornando somente as receitas já existentes na API e as receitas criadas pelo próprio usuário (com a mesma _key_).
+
+## Considerações finais
+
+Esse projeto foi, de longe, o projeto mais complexo que já construí. Apesar de ter sido feito como parte de um curso, compreender toda a lógica, os padrões e estruturas da arquitetura, e cada parte da aplicação foi bastante desafiador!
+
+A aplicação foi criada com HTML, CSS e JavaScript puro, usando a arquitetura MVC. Aprendi e pratiquei um pouco mais alguns princípios e práticas como:
+
+- Manipulação do DOM
+- JavaScript Assíncrono (Promises, async/await e AJAX)
+- Componentização, modularização e reutilização de código
+- Orientação a objetos e herança entre objetos
+- API de localStorage
+- Arquitetura MVC e padrão Publisher-Subscriber
+- Gerenciadores de pacotes e bundlers (NPM e Parcel)
+- Polyfilling
+- E muitas outras coisas...
+
+Realmente, foram muitos conhecimentos novos. Fiquei bastante orgulhoso do resultado! Se você leu até aqui, muito obrigado mesmo pela atenção :)

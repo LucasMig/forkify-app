@@ -12,6 +12,8 @@ O resultado final do projeto está [hospedado aqui](https://forkify-migliori.net
 
 Para testar, basta acessar. =)
 
+Pra pesquisar uma receita na aplicação, é preciso usar termos em inglês. Uma lista com todos os termos que podem ser pesquisados está disponível [nesse link](https://forkify-api.herokuapp.com/phrases.html).
+
 ## Como esse projeto foi feito?
 
 A aplicação foi criada com as linguagens básicas do desenvolvimento web (HTML, CSS e JS) e consome uma API de receitas chamada [Forkify](https://forkify-api.herokuapp.com/v2). Esse foi um dos projetos que mais gostei de construir até o momento, então detalhei melhor todo o processo a seguir!

@@ -12,13 +12,11 @@ O resultado final do projeto está [hospedado aqui](https://forkify-migliori.net
 
 Para testar, basta acessar! Mas se quiser rodar da sua máquina:
 
-        npm install
+        > npm install
 
-        npm run start
-        # or
-        npm start
+        > npm start
 
-Em seguida, é só abrir http://localhost:1234
+Em seguida, é só abrir http://localhost:1234.
 
 Pra pesquisar uma receita na aplicação, é preciso usar termos em inglês. Uma lista com todos os termos que podem ser pesquisados está disponível [nesse link](https://forkify-api.herokuapp.com/phrases.html).
 

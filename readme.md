@@ -10,13 +10,15 @@ Criar uma aplicação onde o usuário pudesse pesquisar receitas, visualizá-las
 
 O resultado final do projeto está [hospedado aqui](https://forkify-migliori.netlify.app/).
 
-Para testar, basta acessar! Mas se quiser rodar da sua máquina:
+Para testar, basta acessar! Mas se quiser rodar da sua máquina, instale as dependências:
 
         > npm install
 
+Depois, é só rodar o servidor:
+
         > npm start
 
-Em seguida, é só abrir http://localhost:1234.
+Se o navegador não abrir automaticamente, é só abrir http://localhost:1234.
 
 Pra pesquisar uma receita na aplicação, é preciso usar termos em inglês. Uma lista com todos os termos que podem ser pesquisados está disponível [nesse link](https://forkify-api.herokuapp.com/phrases.html).
 
